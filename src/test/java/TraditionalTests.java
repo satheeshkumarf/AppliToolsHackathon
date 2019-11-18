@@ -1,21 +1,18 @@
 package test.java;
 
-import main.java.TestBase;
+import main.java.TestBaseTraditional;
 import main.java.Utility;
 import main.pages.DashboardPage;
 import main.pages.LoginPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import test.data.LoginData;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static java.util.Arrays.sort;
 
-public class TraditionalTests extends TestBase {
+public class TraditionalTests extends TestBaseTraditional {
 
     @Test
     public void testLoginPageUIElements(){
