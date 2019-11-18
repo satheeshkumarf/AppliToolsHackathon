@@ -9,37 +9,33 @@ import org.testng.annotations.*;
 
 import java.util.Properties;
 
-public class TestBase {
+public class TestBaseEyes {
 
-    public WebDriver driver;
+    public WebDriver browser;
     public Eyes eyes;
 
-    @BeforeClass
-    public void initializeEyes(){
-        String properiesFilePath = Utility.getTestResourcesPath()+"config.properties";
-        Properties prop = Utility.readPropertiesFile(properiesFilePath);
-        BatchInfo batchInfo = new BatchInfo("Hackathon Tests");
-        eyes = new Eyes();
-        eyes.setApiKey(prop.getProperty("eyes_api_key"));
-        eyes.setBatch(batchInfo);
-        eyes.setForceFullPageScreenshot(true);
-
-    }
 
     @BeforeTest
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", Utility.getTestResourcesPath()+"/chromedriver");
+        String properiesFilePath = Utility.getTestResourcesPath()+"config.properties";
+        Properties prop = Utility.readPropertiesFile(properiesFilePath);
+        BatchInfo batchInfo = new BatchInfo("Hackathon Tests");
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("disable-infobars");
-        driver = new ChromeDriver(options);
-        driver.get("https://demo.applitools.com/hackathonV2.html");
+        browser = new ChromeDriver(options);
 
+        eyes = new Eyes();
+        eyes.setApiKey(prop.getProperty("eyes_api_key"));
+        eyes.setBatch(batchInfo);
+        eyes.setForceFullPageScreenshot(true);
     }
 
     @AfterTest
     public void closeDriver(){
-        driver.quit();
+        browser.quit();
     }
 
     @AfterClass

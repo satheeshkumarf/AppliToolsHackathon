@@ -24,10 +24,12 @@ public class Utility {
                 .globalSimilarity(90);
     }
 
-    public static void takeScreenShotUsingEyes(WebDriver driver, Eyes eyes, String appName, String testName){
-        eyes.open(driver, appName, testName, new RectangleSize(1400,679));
-        eyes.checkWindow("Dynamic Content");
-        eyes.closeAsync();
+    public static WebDriver initializeEyes(WebDriver driver, Eyes eyes, String appName, String testName){
+        return eyes.open(driver, appName, testName, new RectangleSize(1400,679));
+    }
+
+    public static void captureScreenshot(Eyes eyes, String windowName){
+        eyes.checkWindow(windowName);
     }
 
     public static Properties readPropertiesFile(String filepath) {
@@ -41,5 +43,11 @@ public class Utility {
             System.out.println("ERROR: Unable to read config file");
         }
         return prop;
+    }
+
+    public static String getValueFromPropertyFile(String key){
+        String properiesFilePath = Utility.getTestResourcesPath()+"config.properties";
+        Properties prop = Utility.readPropertiesFile(properiesFilePath);
+        return prop.getProperty(key);
     }
 }
