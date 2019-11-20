@@ -39,7 +39,7 @@ public class TraditionalTests extends TestBaseTraditional {
         loginPage.enterUserName(userName);
         loginPage.enterPassword(password);
         loginPage.clickLogin();
-        loginPage.getValidationMessage(validationMessage);
+        Assert.assertTrue(loginPage.getValidationMessage(validationMessage));
     }
 
 
