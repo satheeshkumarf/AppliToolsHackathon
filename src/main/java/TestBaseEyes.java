@@ -2,6 +2,7 @@ package main.java;
 
 import com.applitools.eyes.BatchInfo;
 import com.applitools.eyes.selenium.Eyes;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,14 +14,18 @@ public class TestBaseEyes {
 
     public WebDriver browser;
     public Eyes eyes;
+    private static BatchInfo batch;
 
+    @BeforeClass
+    public static void setBatch(){
+        batch = new BatchInfo("Hackathon");
+    }
 
     @BeforeTest
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", Utility.getTestResourcesPath()+"/chromedriver");
         String properiesFilePath = Utility.getTestResourcesPath()+"config.properties";
         Properties prop = Utility.readPropertiesFile(properiesFilePath);
-        BatchInfo batchInfo = new BatchInfo("Hackathon Tests");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
@@ -29,7 +34,7 @@ public class TestBaseEyes {
 
         eyes = new Eyes();
         eyes.setApiKey(prop.getProperty("eyes_api_key"));
-        eyes.setBatch(batchInfo);
+        eyes.setBatch(batch);
         eyes.setForceFullPageScreenshot(true);
     }
 
